@@ -25,6 +25,7 @@ def get_complement(nucleotide):
 
         nucleotide: a nucleotide (A, C, G, or T) represented as a string
         returns: the complementary nucleotide
+        Added in remaining T and G tests to cover all nucleotides
     >>> get_complement('A')
     'T'
     >>> get_complement('C')
@@ -51,6 +52,7 @@ def get_reverse_complement(dna):
 
         dna: a DNA sequence represented as a string
         returns: the reverse complementary DNA sequence represented as a string
+        Added in last test, a string of dna without an ending codon
     >>> get_reverse_complement("ATGCCCGCTTT")
     'AAAGCGGGCAT'
     >>> get_reverse_complement("CCGCGTTCA")
@@ -74,6 +76,8 @@ def rest_of_ORF(dna):
 
         dna: a DNA sequence
         returns: the open reading frame represented as a string
+
+        Added in another test, just to verify
     >>> rest_of_ORF("ATGTGAA")
     'ATG'
     >>> rest_of_ORF("ATGAGATAGG")
@@ -110,6 +114,7 @@ def find_all_ORFs_oneframe(dna):
 
         dna: a DNA sequence
         returns: a list of non-nested ORFs
+        This test is sufficient enough.
     >>> find_all_ORFs_oneframe("ATGCATGAATGTAGATAGATGTGCCC")
     ['ATGCATGAATGTAGA', 'ATGTGCCC']
     """
@@ -169,8 +174,11 @@ def find_all_ORFs_both_strands(dna):
 def longest_ORF(dna):
     """ Finds the longest ORF on both strands of the specified DNA and returns it
         as a string
+        Added in test where the longest ORF is really small
     >>> longest_ORF("ATGCGAATGTAGCATCAAA")
     'ATGCTACATTCGCAT'
+    >>> longest_ORF("ATG")
+    'ATG'
     """
     max_strand_length = 0
     orf_long = ""
@@ -190,6 +198,9 @@ def longest_ORF_noncoding(dna, num_trials):
         dna: a DNA sequence
         num_trials: the number of random shuffles
         returns: the maximum length longest ORF 
+        Tested by varying the number of trials. When this number is really high
+        the strand length should be about the same each time you run it since the shuffles
+        should start to repeat, and the code will take the longest one.
         >>> longest_ORF_noncoding
         """
     longest_length = 0
@@ -211,11 +222,14 @@ def coding_strand_to_AA(dna):
         dna: a DNA sequence represented as a string
         returns: a string containing the sequence of amino acids encoded by the
                  the input DNA fragment
+         Added in other codons to test other table match ups
 
         >>> coding_strand_to_AA("ATGCGA")
         'MR'
         >>> coding_strand_to_AA("ATGCCCGCTT")
         'MPA'
+        >>> coding_strand_to_AA("ATGGATCCCGCTT")
+        'MDPA'
     """
     amino = ''
     i=0
@@ -243,7 +257,7 @@ def gene_finder(dna):
 if __name__ == "__main__":
     import doctest
     dna = load_seq("./data/X73525.fa")
-    print gene_finder(dna)
+    #print gene_finder(dna)
     #doctest.testmod()
     #print len(longest_ORF_noncoding(dna,1))
-    #doctest.run_docstring_examples(coding_strand_to_AA, globals())
+    doctest.run_docstring_examples(coding_strand_to_AA, globals())
