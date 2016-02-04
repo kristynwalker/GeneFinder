@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-YOUR HEADER COMMENT HERE
+Mini project 1: Gene Finder
 
 @author: Kristyn Walker
 
